@@ -7,16 +7,21 @@ import {CustomLoggerService} from "./common/logger/custom-logger.service";
 import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
 import {ValidationPipe} from "@nestjs/common";
 import {Fetch} from "../../Infrastructure/Fetch/Fetch";
-import helmet from 'helmet';
 import { v4 } from 'uuid';
+import { Logger } from "../../Infrastructure/Logger/Logger";
+import { NestExpressApplication } from "@nestjs/platform-express";
+import { join } from "path";
+
+import * as hbs from 'hbs';
 
 config({
-  path: '.env.local',
+  path: '.env',
 });
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    logger: false,
+  const logger = new Logger('App')
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    logger: logger,
   });
 
   app.setGlobalPrefix(process.env.APP_GLOBAL_PREFIX);
@@ -34,8 +39,6 @@ async function bootstrap() {
 
   app.useLogger(app.get<CustomLoggerService>(LOGGER));
 
-  app.use(helmet());
-
   Fetch.init()
 
   const config = new DocumentBuilder()
@@ -45,6 +48,13 @@ async function bootstrap() {
       .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
+
+
+  app.useStaticAssets(join(__dirname, '..', '..', 'Public', 'assets'));
+  app.setBaseViewsDir(join(__dirname, '..', '..', 'Public', 'views'));
+  app.setViewEngine('hbs');
+
+  hbs.registerPartials(join(__dirname, '..', '..', 'Public/views/layout'));
 
   await app.listen(process.env.APP_PORT);
 }
