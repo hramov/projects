@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import {LoggerModule} from "../../common/logger/logger.module";
+import {LoggerModule} from "../../lib/api/common/logger/logger.module";
 import {AuthService} from "./auth.service";
 import {AuthController} from "./auth.controller";
 import {TypeOrmModule} from "@nestjs/typeorm";

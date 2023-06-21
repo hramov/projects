@@ -6,7 +6,7 @@ import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {AuthService} from "./auth.service";
 import {LoginDto} from "./dto/login.dto";
 import {RegisterDto} from "./dto/register.dto";
-import {checkError} from "../../error/CheckError";
+import {checkError} from "../../lib/api/error/CheckError";
 import {Public} from "./public.decorator";
 
 @Controller('auth')

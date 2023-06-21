@@ -6,7 +6,7 @@ import {ApiBearerAuth, ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger
 import {User} from "../auth/user.decorator";
 import {UserDto} from "./dto/user.dto";
 import {Uuid} from "../../../../Shared/src/ValueObject/Objects/Uuid";
-import {checkError} from "../../error/CheckError";
+import {checkError} from "../../lib/api/error/CheckError";
 
 @Controller('user')
 export class UserController {

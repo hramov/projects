@@ -1,18 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { config } from 'dotenv';
 import { NextFunction } from 'express';
-import {AppModule} from "./app.module";
+import {AppModule} from "../../app/app.module";
 import { ASYNC_STORAGE, LOGGER } from "./common/constants";
 import {CustomLoggerService} from "./common/logger/custom-logger.service";
 import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
 import {ValidationPipe} from "@nestjs/common";
-import {Fetch} from "../../Infrastructure/Fetch/Fetch";
+import {Fetch} from "../infrastructure/fetch/Fetch";
 import { v4 } from 'uuid';
-import { Logger } from "../../Infrastructure/Logger/Logger";
+import { Logger } from "../infrastructure/logger/Logger";
 import { NestExpressApplication } from "@nestjs/platform-express";
-import { join } from "path";
-
-import * as hbs from 'hbs';
 
 config({
   path: '.env',
@@ -48,13 +45,6 @@ async function bootstrap() {
       .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
-
-
-  app.useStaticAssets(join(__dirname, '..', '..', 'Public', 'assets'));
-  app.setBaseViewsDir(join(__dirname, '..', '..', 'Public', 'views'));
-  app.setViewEngine('hbs');
-
-  hbs.registerPartials(join(__dirname, '..', '..', 'Public/views/layout'));
 
   await app.listen(process.env.APP_PORT);
 }
