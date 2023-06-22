@@ -3,7 +3,7 @@ import {
 } from '@nestjs/common';
 import {UserService} from "./user.service";
 import {ApiBearerAuth, ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
-import {User} from "../auth/user.decorator";
+import {User} from "../auth/decorators/user.decorator";
 import {UserDto} from "./dto/user.dto";
 import {checkError} from "../../error/CheckError";
 

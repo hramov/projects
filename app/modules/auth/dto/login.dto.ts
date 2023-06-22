@@ -11,7 +11,7 @@ export class LoginDto {
         ]
     })
     @IsString()
-    tg_name: string;
+    login: string;
 
     @ApiProperty({
         type: 'string',

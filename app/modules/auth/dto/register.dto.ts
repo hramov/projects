@@ -8,15 +8,28 @@ export class RegisterDto {
         examples: ['@therealhramov']
     })
     @IsString()
-    public tg_name: string;
-
+    public login: string;
+    
     @ApiProperty({
-        type: 'number',
-        description: 'Role code',
-        examples: [10]
+        type: 'string',
+        description: 'First name',
     })
-    @IsNumber()
-    public role_code: number;
+    @IsString()
+    public firstname: string;
+    
+    @ApiProperty({
+        type: 'string',
+        description: 'Last name',
+    })
+    @IsString()
+    public lastname: string;
+    
+    @ApiProperty({
+        type: 'string',
+        description: 'Email',
+    })
+    @IsString()
+    public email: string;
 
     @ApiProperty({
         type: 'string',

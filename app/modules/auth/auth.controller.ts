@@ -1,13 +1,13 @@
 import {
     Body,
-    Controller, Post,
-} from '@nestjs/common';
+    Controller, Post, UseGuards, Request
+} from "@nestjs/common";
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {AuthService} from "./auth.service";
-import {LoginDto} from "./dto/login.dto";
 import {RegisterDto} from "./dto/register.dto";
 import {checkError} from "../../error/CheckError";
-import {Public} from "./public.decorator";
+import {Public} from "./decorators/public.decorator";
+import { LocalAuthGuard } from "./guards/local.guard";
 
 @Controller('auth')
 export class AuthController {
@@ -15,19 +15,15 @@ export class AuthController {
 
     @ApiTags('Auth')
     @Post('/login')
-    @Public()
+    @UseGuards(LocalAuthGuard)
     @ApiOperation({
         summary: 'Login'
     })
     @ApiResponse({
         status: 200,
     })
-    async login(@Body() dto: LoginDto) {
-        // const result = await this.authService.login(dto);
-        // if (result instanceof Error) {
-        //     checkError(result)
-        // }
-        // return result;
+    async login(@Request() req) {
+        return req.user;
     }
 
     @ApiTags('Auth')
