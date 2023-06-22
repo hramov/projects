@@ -6,7 +6,7 @@ import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {AuthService} from "./auth.service";
 import {LoginDto} from "./dto/login.dto";
 import {RegisterDto} from "./dto/register.dto";
-import {checkError} from "../../lib/api/error/CheckError";
+import {checkError} from "../../error/CheckError";
 import {Public} from "./public.decorator";
 
 @Controller('auth')
@@ -23,11 +23,11 @@ export class AuthController {
         status: 200,
     })
     async login(@Body() dto: LoginDto) {
-        const result = await this.authService.login(dto);
-        if (result instanceof Error) {
-            checkError(result)
-        }
-        return result;
+        // const result = await this.authService.login(dto);
+        // if (result instanceof Error) {
+        //     checkError(result)
+        // }
+        // return result;
     }
 
     @ApiTags('Auth')
@@ -40,10 +40,10 @@ export class AuthController {
         status: 200,
     })
     async register(@Body() dto: RegisterDto) {
-        const result = await this.authService.register(dto);
-        if (result instanceof Error) {
-            checkError(result)
-        }
-        return result;
+        // const result = await this.authService.register(dto);
+        // if (result instanceof Error) {
+        //     checkError(result)
+        // }
+        // return result;
     }
 }

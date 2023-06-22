@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import {LoggerModule} from "../../lib/api/common/logger/logger.module";
+import {LoggerModule} from "../../common/logger/logger.module";
 import {AuthService} from "./auth.service";
 import {AuthController} from "./auth.controller";
 import {TypeOrmModule} from "@nestjs/typeorm";
@@ -8,6 +8,8 @@ import {APP_GUARD} from "@nestjs/core";
 import {AuthGuard} from "./auth.guard";
 import {RolesGuard} from "./roles.guard";
 import {secret} from "./auth.constants";
+import { UserModule } from "../user/user.module";
+import { RoleModule } from "../role/role.module";
 
 @Module({
     imports: [LoggerModule,
@@ -16,7 +18,10 @@ import {secret} from "./auth.constants";
             secret: secret, // TODO move to config
             signOptions: { expiresIn: '30m' },
         }),
-        TypeOrmModule.forFeature([])],
+        TypeOrmModule.forFeature([]),
+      UserModule,
+      RoleModule
+    ],
     providers: [AuthService, {
         provide: APP_GUARD,
         useClass: AuthGuard,

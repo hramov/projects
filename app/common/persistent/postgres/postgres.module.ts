@@ -11,10 +11,9 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 				username: process.env.PG_USERNAME,
 				password: process.env.PG_PASSWORD,
 				database: process.env.PG_DATABASE,
-				entities: [__dirname + '../entity/*.entity.ts'],
+				entities: ['../../../modules/**/entity/*.entity.ts'],
 				autoLoadEntities: true,
 				synchronize: true,
-				logging: false,
 			})
 		})
 	],

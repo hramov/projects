@@ -5,8 +5,7 @@ import {UserService} from "./user.service";
 import {ApiBearerAuth, ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {User} from "../auth/user.decorator";
 import {UserDto} from "./dto/user.dto";
-import {Uuid} from "../../../../Shared/src/ValueObject/Objects/Uuid";
-import {checkError} from "../../lib/api/error/CheckError";
+import {checkError} from "../../error/CheckError";
 
 @Controller('user')
 export class UserController {
@@ -22,11 +21,11 @@ export class UserController {
         status: 200,
     })
     async info(@User() user: UserDto) {
-        const result = await this.userService.getById(new Uuid(user.id));
-        if (result instanceof Error) {
-            checkError(result);
-        }
-        return result;
+        // const result = await this.userService.getById(new Uuid(user.id));
+        // if (result instanceof Error) {
+        //     checkError(result);
+        // }
+        // return result;
     }
 
 }

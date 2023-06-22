@@ -1,9 +1,8 @@
 import {Column, Generated, PrimaryGeneratedColumn} from "typeorm";
 
 export class BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    @Generated('uuid')
-    public id: string;
+    @PrimaryGeneratedColumn()
+    public id: number;
 
     @Column({
         default: new Date(),
