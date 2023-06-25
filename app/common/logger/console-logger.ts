@@ -1,4 +1,4 @@
-import { ILoggerWriter } from './Logger';
+import { ILoggerWriter } from './logger';
 
 export class ConsoleLogger implements ILoggerWriter {
 	async write(msg: string, stack?: any): Promise<boolean | Error> {

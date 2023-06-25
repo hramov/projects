@@ -1,4 +1,4 @@
-import { ConsoleLogger } from './ConsoleLogger';
+import { ConsoleLogger } from './console-logger';
 
 export interface ILoggerWriter {
 	write(msg: string, stack?: any): Promise<boolean | Error>;

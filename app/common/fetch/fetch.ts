@@ -1,10 +1,10 @@
-import axios from 'axios';
-import {FetchError} from "./Error";
+import axios, { AxiosInstance } from "axios";
+import {FetchError} from "./error";
 
 export class Fetch {
-    static instance;
-
-    static init() {
+    private readonly instance: AxiosInstance;
+    
+    constructor() {
         axios.interceptors.request.use(function (config) {
             return config;
         }, function (error) {
@@ -17,13 +17,13 @@ export class Fetch {
             return Promise.reject(error);
         });
 
-        Fetch.instance = axios.create({
+        this.instance = axios.create({
             baseURL: 'http://localhost',
             timeout: 15000,
         });
     }
 
-    static async get<T>(url: string): Promise<T | FetchError> {
+    async get<T>(url: string): Promise<T | FetchError> {
         try {
             const response = await this.instance.get(url);
             return response.data;

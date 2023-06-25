@@ -6,9 +6,8 @@ import { ASYNC_STORAGE, LOGGER } from "./common/constants";
 import {CustomLoggerService} from "./common/logger/custom-logger.service";
 import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
 import {ValidationPipe} from "@nestjs/common";
-import {Fetch} from "../infrastructure/fetch/Fetch";
 import { v4 } from 'uuid';
-import { Logger } from "../infrastructure/logger/Logger";
+import { Logger } from "./common/logger/logger";
 import { NestExpressApplication } from "@nestjs/platform-express";
 
 config({
@@ -37,8 +36,6 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   app.useLogger(app.get<CustomLoggerService>(LOGGER));
-
-  Fetch.init()
 
   const config = new DocumentBuilder()
       .setTitle('GVC Projects')

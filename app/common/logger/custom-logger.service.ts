@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { AsyncLocalStorage } from 'async_hooks';
 import {ASYNC_STORAGE} from "../constants";
-import { Logger } from '../../../infrastructure/logger/Logger';
+import { Logger } from './logger';
 
 @Injectable()
 export class CustomLoggerService {
