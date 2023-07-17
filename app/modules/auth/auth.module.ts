@@ -23,13 +23,15 @@ import { PassportModule } from "@nestjs/passport";
       UserModule,
       RoleModule
     ],
-    providers: [AuthService, {
-        provide: APP_GUARD,
-        useClass: AuthGuard,
-    }, {
-        provide: APP_GUARD,
-        useClass: RolesGuard,
-    },],
+    providers: [AuthService,
+        //{
+    //     provide: APP_GUARD,
+    //     useClass: AuthGuard,
+    // }, {
+    //     provide: APP_GUARD,
+    //     useClass: RolesGuard,
+    // }
+    ],
     controllers: [AuthController]
 })
 export class AuthModule {}

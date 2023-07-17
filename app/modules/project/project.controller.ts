@@ -10,9 +10,14 @@ import { SearchProjectDto } from "./dto/search-project.dto";
 export class ProjectController {
 	constructor(private readonly projectsService: ProjectService) {}
 	
+	@Public()
 	@Post()
 	create(@Body() createProjectDto: CreateProjectDto) {
-		return this.projectsService.create(createProjectDto);
+		const result = this.projectsService.create(createProjectDto);
+		if (result instanceof Error) {
+			throw result;
+		}
+		return result;
 	}
 	
 	@Get()

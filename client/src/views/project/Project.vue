@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useAppStore } from "../../store/app.store";
-import { ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import ProjectsTable from "./components/ProjectsTable.vue";
 import ProjectsGrid from "./components/ProjectsGrid.vue";
 import CreateProject from "./components/CreateProject.vue";
+import { useProjectStore } from "../../store/project.store";
 
 const appStore = useAppStore();
 appStore.pageTitle = 'Проекты';
@@ -16,6 +17,12 @@ const views = {
 }
 
 const dialog = ref(false);
+
+const projectStore = useProjectStore();
+
+onMounted(() => {
+  projectStore.getProjects();
+});
 </script>
 
 <template>
@@ -52,14 +59,14 @@ const dialog = ref(false);
           <v-icon icon="mdi-table"></v-icon>
         </v-btn>
 
-        <v-btn value="grid" :disabled="viewMode === 'grid'">
+        <v-btn value="grid" :disabled="viewMode === 'grid' || true">
           <v-icon icon="mdi-card"></v-icon>
         </v-btn>
       </v-btn-toggle>
     </div>
 
     <div class="projects">
-      <component :is="views[viewMode]"></component>
+      <component :is="views[viewMode]" :projects="projectStore.projects"></component>
     </div>
 
     <CreateProject v-if="dialog" :dialog="dialog" @modalClosed="dialog = false"/>

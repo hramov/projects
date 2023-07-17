@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { router } from './../../../router'
-import { ref } from "vue";
-
-const projects = ref([]);
+import { defineProps, ref } from "vue";
+const props = defineProps(['projects'])
 </script>
 
 <template>
@@ -11,7 +10,7 @@ const projects = ref([]);
     class="mx-auto"
   >
     <v-card-text>
-  <v-table fixed-header v-if="projects.length">
+  <v-table fixed-header v-if="projects.data?.length">
     <thead>
     <tr>
       <th class="text-left">
@@ -21,20 +20,28 @@ const projects = ref([]);
         Название
       </th>
       <th class="text-left">
+        Тип
+      </th>
+      <th class="text-left">
         Статус
+      </th>
+      <th class="text-left">
+        Руководитель
       </th>
     </tr>
     </thead>
     <tbody>
     <tr
-      v-for="item in projects"
+      v-for="(item, idx) in projects?.data"
       :key="item.name"
       @click="router.push('/project/1')"
       style="cursor: pointer"
     >
-      <td>{{ item.name }}</td>
-      <td>{{ item.calories }}</td>
-      <td>{{ item.calories }}</td>
+      <td>{{ idx + 1 }}</td>
+      <td>{{ item.title }}</td>
+      <td>{{ item.type.title }}</td>
+      <td>{{ item.status.title }}</td>
+      <td>{{ item.manager?.fio }}</td>
     </tr>
     </tbody>
   </v-table>

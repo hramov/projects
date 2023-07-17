@@ -20,27 +20,49 @@ export class ProjectEntity extends BaseEntity {
 	})
 	title: string;
 	
+	@ManyToOne(() => UserEntity, user => user.id)
+	@JoinColumn({
+		name: 'manager',
+	})
+	manager: UserEntity;
+	
+	@Column({
+		name: 'manager_id',
+	})
+	manager_id: number;
+	
 	@Column({
 		name: 'description',
-		type: 'varchar'
+		type: 'varchar',
+		nullable: true,
 	})
 	description: string;
 	
 	@Column({
 		name: 'homepage',
-		type: 'varchar'
+		type: 'varchar',
+		nullable: true,
 	})
 	homepage: string;
 	
 	@Column({
 		name: 'is_public',
-		type: 'boolean'
+		type: 'boolean',
+		nullable: true,
 	})
 	is_public: boolean;
 	
 	@Column({
+		name: 'is_active',
+		type: 'boolean',
+		default: true,
+	})
+	is_active: boolean;
+	
+	@Column({
 		name: 'version',
-		type: 'numeric'
+		type: 'numeric',
+		nullable: true,
 	})
 	version: number;
 	
