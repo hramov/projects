@@ -8,7 +8,7 @@ const password = ref('');
 
 const login = async () => {
   const api = new Api();
-  const result = await api.post('login', {
+  const result = await api.post('auth/login', {
     username: username.value,
     password: password.value
   });
@@ -18,6 +18,7 @@ const login = async () => {
 <template>
   <div class="d-flex align-center justify-center" style="height: 100vh">
     <v-sheet width="400" class="mx-auto">
+      <div class="login-header">Проекты ГВЦ</div>
       <v-form fast-fail @submit.prevent="login">
         <v-text-field variant="outlined" v-model="username" label="Логин" required></v-text-field>
 
@@ -33,3 +34,12 @@ const login = async () => {
     </v-sheet>
   </div>
 </template>
+
+<style scoped>
+  .login-header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 25px;
+  }
+</style>

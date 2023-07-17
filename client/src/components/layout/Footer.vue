@@ -1,11 +1,9 @@
 <script setup lang="ts">
 const links = [
-  'Home',
-  'About Us',
-  'Team',
-  'Services',
-  'Blog',
-  'Contact Us',
+  'Домашняя страница',
+  'О проекте',
+  'Разработчики',
+  'Блог',
 ];
 </script>
 
@@ -23,7 +21,7 @@ const links = [
         {{ link }}
       </v-btn>
       <v-col class="text-center mt-4" cols="12">
-        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+        {{ new Date().getFullYear() }} — <strong>ГВЦ ОАО "РЖД"</strong>
       </v-col>
     </v-row>
   </v-footer>

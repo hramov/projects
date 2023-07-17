@@ -3,9 +3,9 @@ import { BaseEntity } from "../../../common/persistent/entity/entity";
 import { ProjectEntity } from "./project.entity";
 
 @Entity({
-	name: 'project_status'
+	name: 'project_type'
 })
-export class ProjectStatusEntity extends BaseEntity {
+export class ProjectTypeEntity extends BaseEntity {
 	@Column({
 		name: 'title',
 		type: 'varchar'
@@ -13,10 +13,10 @@ export class ProjectStatusEntity extends BaseEntity {
 	title: string;
 	
 	@Column({
-		name: 'color',
+		name: 'code',
 		type: 'varchar'
 	})
-	color: string;
+	code: string;
 	
 	@Column({
 		name: 'is_active',
@@ -24,6 +24,6 @@ export class ProjectStatusEntity extends BaseEntity {
 	})
 	is_active: boolean;
 	
-	@OneToMany(() => ProjectEntity, project => project.status)
+	@OneToMany(() => ProjectEntity, project => project.type)
 	projects: ProjectEntity[];
 }

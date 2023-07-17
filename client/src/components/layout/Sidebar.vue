@@ -5,8 +5,7 @@ import { pages } from "./../../config/config";
 
 <template>
   <v-navigation-drawer
-    expand-on-hover
-    rail
+    permanent
   >
     <v-list>
       <v-list-item
@@ -19,8 +18,19 @@ import { pages } from "./../../config/config";
     <v-divider></v-divider>
 
     <v-list density="compact" nav>
-      <v-list-item v-for="item in pages" prepend-icon="mdi-folder" :title="item.title" :to="item.url"></v-list-item>
+      <v-list-item v-for="item in pages" :prepend-icon="item.icon" :title="item.title" :to="item.url"></v-list-item>
     </v-list>
+
+    <v-divider></v-divider>
+    <v-list-subheader class="ml-5">Администрирование</v-list-subheader>
+
+    <v-list density="compact" nav>
+      <v-list-item prepend-icon="mdi-cog-outline" title="Общие настройки" to="/common"></v-list-item>
+      <v-list-item prepend-icon="mdi-account-group" title="Пользователи" to="/users"></v-list-item>
+      <v-list-item prepend-icon="mdi-security" title="Роли" to="/roles"></v-list-item>
+      <v-list-item prepend-icon="mdi-book-alphabet" title="Словари" to="/dictionaries"></v-list-item>
+    </v-list>
+
   </v-navigation-drawer>
 </template>
 

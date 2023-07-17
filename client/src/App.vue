@@ -12,14 +12,14 @@ const appStore = useAppStore();
     <Sidebar v-if="!$route.path.includes('login') && !$route.path.includes('register')" />
     <Navbar :appTitle="appStore.appTitle" :pageTitle="appStore.pageTitle" v-if="!$route.path.includes('login') && !$route.path.includes('register')" />
     <div style="width: 100%">
-      <v-main class="d-flex align-center justify-center" style="min-height: 300px">
+      <v-main class="d-flex justify-center" style="min-height: 300px">
         <router-view v-slot="{ Component }">
           <keep-alive :include="['Login', 'register']">
             <component :is="Component" />
           </keep-alive>
         </router-view>
       </v-main>
-      <Footer v-if="!$route.path.includes('login') && !$route.path.includes('register')" />
+<!--      <Footer v-if="!$route.path.includes('login') && !$route.path.includes('register')" />-->
     </div>
   </v-layout>
 </template>

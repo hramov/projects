@@ -12,8 +12,8 @@ import { router } from "./router";
 import "@mdi/font/css/materialdesignicons.css";
 
 const vuetify = createVuetify({
-				components,
-				directives,
+	components,
+	directives,
 });
 
 const pinia = createPinia();

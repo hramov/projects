@@ -9,9 +9,17 @@ import { UserModule } from "./modules/user/user.module";
 import { SettingsModule } from "./modules/settings/settings.module";
 import { AuditModule } from "./modules/audit/audit.module";
 import { IssueModule } from './modules/issue/issue.module';
+import { ConfigModule } from "@nestjs/config";
+import config from "../config/config";
 
 @Module({
   imports: [
+      // config
+    ConfigModule.forRoot({
+      load: [config],
+      isGlobal: true,
+    }),
+      
       // external modules
     CacheModule.register({ isGlobal: true }),
     

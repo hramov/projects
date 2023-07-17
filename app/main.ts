@@ -1,5 +1,4 @@
 import { NestFactory } from '@nestjs/core';
-import { config } from 'dotenv';
 import { NextFunction } from 'express';
 import {AppModule} from "./app.module";
 import { ASYNC_STORAGE, LOGGER } from "./common/constants";
@@ -9,18 +8,17 @@ import {ValidationPipe} from "@nestjs/common";
 import { v4 } from 'uuid';
 import { Logger } from "./common/logger/logger";
 import { NestExpressApplication } from "@nestjs/platform-express";
-
-config({
-  path: '.env',
-});
+import { ConfigService } from "@nestjs/config";
 
 async function bootstrap() {
   const logger = new Logger('App')
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: logger,
   });
+  
+  const configService = app.get<ConfigService>(ConfigService)
 
-  app.setGlobalPrefix(process.env.APP_GLOBAL_PREFIX);
+  app.setGlobalPrefix(configService.get<string>('app.global_prefix'));
   app.enableCors();
 
   app.use((req: any, res: any, next: NextFunction) => {
@@ -37,15 +35,15 @@ async function bootstrap() {
 
   app.useLogger(app.get<CustomLoggerService>(LOGGER));
 
-  const config = new DocumentBuilder()
+  const swaggerConfig = new DocumentBuilder()
       .setTitle('GVC Projects')
       .setDescription('GVC Projects MVC')
       .setVersion('1.0.0')
       .build();
-  const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('swagger', app, document);
 
-  await app.listen(process.env.APP_PORT);
+  await app.listen(configService.get<number>('app.port'));
 }
 
 bootstrap().catch((err: unknown) => console.error(err))

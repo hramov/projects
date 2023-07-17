@@ -1,15 +1,39 @@
-import { Controller, Get, Res } from "@nestjs/common";
-import { Response } from "express";
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from "@nestjs/common";
+import { ProjectService } from './project.service';
+import { CreateProjectDto } from './dto/create-project.dto';
+import { UpdateProjectDto } from './dto/update-project.dto';
+import { Public } from "../auth/decorators/public.decorator";
+import { FilterPipe } from "../../pipes/filter.pipe";
+import { SearchProjectDto } from "./dto/search-project.dto";
 
-@Controller('/project')
+@Controller('project')
 export class ProjectController {
-
-  @Get('/')
-  find(@Res() res: Response) {
-    const page_data = {
-      page_title: 'Проекты',
-      app_title: 'Проекты ГВЦ'
-    }
-    return res.render('project/index', { layout: 'layout/base', data: page_data });
-  }
+	constructor(private readonly projectsService: ProjectService) {}
+	
+	@Post()
+	create(@Body() createProjectDto: CreateProjectDto) {
+		return this.projectsService.create(createProjectDto);
+	}
+	
+	@Get()
+	@Public()
+	findAll(@Query('', FilterPipe) searchDto: SearchProjectDto) {
+		return this.projectsService.findAll(searchDto);
+	}
+	
+	@Get(':id')
+	findOne(@Param('id') id: string) {
+		return this.projectsService.findOne(+id);
+	}
+	
+	@Patch(':id')
+	update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
+		return this.projectsService.update(+id, updateProjectDto);
+	}
+	
+	@Delete(':id')
+	remove(@Param('id') id: string) {
+		return this.projectsService.remove(+id);
+	}
+	
 }

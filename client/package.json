@@ -9,11 +9,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@date-io/dayjs": "^2.16.0",
+    "@headlessui/vue": "^1.7.14",
+    "@heroicons/vue": "^2.0.18",
     "@mdi/font": "^7.2.96",
+    "@mdi/js": "^7.2.96",
+    "@vuelidate/core": "^2.0.3",
+    "@vuelidate/validators": "^2.0.3",
     "material-design-icons-iconfont": "^6.7.0",
     "pinia": "^2.1.4",
     "vue": "^3.2.47",
     "vue-router": "^4.2.2",
+    "vue3-datepicker": "^0.4.0",
     "vuetify": "^3.3.5"
   },
   "devDependencies": {
