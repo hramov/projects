@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import Sidebar from "./components/layout/Sidebar.vue";
 import Navbar from "./components/layout/Navbar.vue";
-import { useAppStore } from "./store/app.store";
+import { useAppStore } from "./store";
 import Footer from "./components/layout/Footer.vue";
+import Snackbar from "./components/layout/Snackbar.vue";
 
 const appStore = useAppStore();
 </script>
@@ -21,6 +22,8 @@ const appStore = useAppStore();
       </v-main>
 <!--      <Footer v-if="!$route.path.includes('login') && !$route.path.includes('register')" />-->
     </div>
+
+    <Snackbar />
   </v-layout>
 </template>
 

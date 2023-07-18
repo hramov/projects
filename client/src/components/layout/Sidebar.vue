@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { pages } from "./../../config/config";
-
+import { useAppStore } from "../../store";
+const appStore = useAppStore();
 </script>
 
 <template>
@@ -18,18 +19,22 @@ import { pages } from "./../../config/config";
     <v-divider></v-divider>
 
     <v-list density="compact" nav>
-      <v-list-item v-for="item in pages" :prepend-icon="item.icon" :title="item.title" :to="item.url"></v-list-item>
+      <v-list-item v-for="item in appStore.menu" :prepend-icon="item.icon" :title="item.title" :to="item.url"></v-list-item>
     </v-list>
 
     <v-divider></v-divider>
-    <v-list-subheader class="ml-5">Администрирование</v-list-subheader>
 
-    <v-list density="compact" nav>
-      <v-list-item prepend-icon="mdi-cog-outline" title="Общие настройки" to="/common"></v-list-item>
-      <v-list-item prepend-icon="mdi-account-group" title="Пользователи" to="/users"></v-list-item>
-      <v-list-item prepend-icon="mdi-security" title="Роли" to="/roles"></v-list-item>
-      <v-list-item prepend-icon="mdi-book-alphabet" title="Словари" to="/dictionaries"></v-list-item>
-    </v-list>
+    <div>
+      <v-list-subheader class="ml-5">Администрирование</v-list-subheader>
+
+      <v-list density="compact" nav>
+        <v-list-item v-for="item in appStore.adminMenu" :prepend-icon="item.icon" :title="item.title" :to="item.url"></v-list-item>
+  <!--      <v-list-item prepend-icon="mdi-cog-outline" title="Общие настройки" to="/common"></v-list-item>-->
+  <!--      <v-list-item prepend-icon="mdi-account-group" title="Пользователи" to="/users"></v-list-item>-->
+  <!--      <v-list-item prepend-icon="mdi-security" title="Роли" to="/roles"></v-list-item>-->
+  <!--      <v-list-item prepend-icon="mdi-book-alphabet" title="Словари" to="/dictionaries"></v-list-item>-->
+      </v-list>
+    </div>
 
   </v-navigation-drawer>
 </template>

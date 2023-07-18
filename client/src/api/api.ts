@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { useAppStore } from "../store";
 
 export type Filters<T> = {
 	[key in keyof T]?: T[key];
@@ -28,18 +29,13 @@ export class Api {
 		this.instance.interceptors.response.use(function (response) {
 			return response;
 		}, function (error: any) {
-			const statusCode = error.response && error.response.data ? error.response.data.statusCode : undefined;
 			return Promise.reject(error);
 		});
 	}
 	
 	public async get<T>(url: string, filters?: string): Promise<T[]> {
-		try {
-			const response = await this.instance.get(url + '/' + (filters ? filters : ''));
-			return response.data;
-		} catch(_err: unknown) {
-			return [];
-		}
+		const response = await this.instance.get(url + '/' + (filters ? filters : ''));
+		return response.data;
 	}
 	
 	public async getOne<T>(url: string, filters?: string): Promise<T | null> {

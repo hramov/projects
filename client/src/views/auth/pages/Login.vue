@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
-import { openLink } from "../../router.ts";
-import { Api } from "../../api/api.ts";
+import { openLink } from "../../../router.ts";
+import { Api } from "../../../api/api.ts";
 
 const username = ref('');
 const password = ref('');

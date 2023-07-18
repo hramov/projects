@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineEmits, defineProps, ref } from "vue";
-import { useProjectStore } from "../../../store/project.store";
+import { useProjectStore } from "../project.store";
 const props = defineProps(['dialog']);
 const emit = defineEmits(['modalClosed', 'newProject'])
 
@@ -33,6 +33,8 @@ const saveProject = () => {
     manager_id: project.value.manager_id,
     type_id: project.value.type_id
   });
+  dialog.value = false;
+  emit('newProject')
 }
 
 </script>

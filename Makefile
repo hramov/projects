@@ -3,3 +3,6 @@ backend:
 
 frontend:
 	cd ./client && npm run dev
+
+run:
+	npm run dev &

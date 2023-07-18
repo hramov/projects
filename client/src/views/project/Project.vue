@@ -1,13 +1,18 @@
 <script setup lang="ts">
-import { useAppStore } from "../../store/app.store";
-import { onMounted, ref, watch } from "vue";
+import { useAppStore } from "../../store";
+import { onMounted, ref } from "vue";
 import ProjectsTable from "./components/ProjectsTable.vue";
 import ProjectsGrid from "./components/ProjectsGrid.vue";
 import CreateProject from "./components/CreateProject.vue";
-import { useProjectStore } from "../../store/project.store";
+import { useProjectStore } from "./project.store";
 
+const upd = ref(Math.random());
 const appStore = useAppStore();
 appStore.pageTitle = 'Проекты';
+
+onMounted(() => {
+  projectStore.getProjects();
+});
 
 const viewMode = ref('table');
 
@@ -19,10 +24,11 @@ const views = {
 const dialog = ref(false);
 
 const projectStore = useProjectStore();
-
-onMounted(() => {
+const newProject = () => {
   projectStore.getProjects();
-});
+  upd.value = Math.random();
+
+}
 </script>
 
 <template>
@@ -66,10 +72,10 @@ onMounted(() => {
     </div>
 
     <div class="projects">
-      <component :is="views[viewMode]" :projects="projectStore.projects"></component>
+      <component :is="views[viewMode]" :projects="projectStore.projects" :key="upd"></component>
     </div>
 
-    <CreateProject v-if="dialog" :dialog="dialog" @modalClosed="dialog = false"/>
+    <CreateProject v-if="dialog" :dialog="dialog" @newProject="newProject" @modalClosed="dialog = false"/>
   </div>
 </template>
 

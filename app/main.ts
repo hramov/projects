@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { NextFunction } from 'express';
+import { NextFunction, Request } from "express";
 import {AppModule} from "./app.module";
 import { ASYNC_STORAGE, LOGGER } from "./common/constants";
 import {CustomLoggerService} from "./common/logger/custom-logger.service";
@@ -21,11 +21,11 @@ async function bootstrap() {
   app.setGlobalPrefix(configService.get<string>('app.global_prefix'));
   app.enableCors();
 
-  app.use((req: any, res: any, next: NextFunction) => {
-    logger.log(`New request from ${req.address} to ${req.path}`)
+  app.use((req: Request, res: any, next: NextFunction) => {
+    logger.log(`New request from ${req.ip} to ${req.path}`)
     const asyncStorage = app.get(ASYNC_STORAGE);
     const traceId = req.headers['x-request-id'] || v4().toString();
-    const store = new Map<string, string>().set('traceId', traceId);
+    const store = new Map<string, string>().set('traceId', traceId as string);
     asyncStorage.run(store, () => {
       next();
     });
